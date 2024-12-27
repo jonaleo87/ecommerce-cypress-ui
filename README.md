@@ -19,5 +19,5 @@ Follow these steps to set up and run the project:
 
 1. **Clone the repository:**
    ```bash
-   git clone <YOUR_REPOSITORY_URL>
-   cd <PROJECT_DIRECTORY_NAME>
+   git clone https://github.com/jonaleo87/ecommerce-cypress-ui.git
+   cd ecommerce-cypress-ui.git
