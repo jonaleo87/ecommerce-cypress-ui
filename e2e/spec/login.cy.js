@@ -9,10 +9,10 @@ describe('Login Tests', () => {
   it('TC01| Validar poder iniciar sesion correctamente', () => {
     cy.visit('https://www.saucedemo.com')
     cy.get('[data-test=username]').type('standard_user');
-    // LoginPage.username.type(Cypress.env('VALID_USER'));
-    // LoginPage.username().type(Cypress.env('VALID_USER'));
-    // LoginPage.password().type(Cypress.env('VALID_PASSWORD'));
-    // LoginPage.loginButton().click();
+    LoginPage.username.type(Cypress.env('VALID_USER'));
+    LoginPage.username().type(Cypress.env('VALID_USER'));
+    LoginPage.password().type(Cypress.env('VALID_PASSWORD'));
+    LoginPage.loginButton().click();
 
 
 
