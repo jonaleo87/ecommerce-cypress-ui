@@ -1,5 +1,5 @@
 // Importar comandos personalizados
-// import './commands';
+import './commands';
 
 // // Ejemplo de un comando personalizado
 // Cypress.Commands.add('login', (username, password) => {

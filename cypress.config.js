@@ -1,6 +1,8 @@
-const { defineConfig } = require("cypress");
+import { defineConfig } from "cypress";
+import dotenv from "dotenv";
+dotenv.config();
 
-module.exports = defineConfig({
+export default defineConfig({
     chromeWebSecurity: false,
     experimentalSessionAndOrigin: true,
     defaultCommandTimeout: 8000,

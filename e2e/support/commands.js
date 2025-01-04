@@ -1,1 +1,0 @@
-// Este archivo define comandos personalizados que se pueden utilizar en las pruebas para simplificar y reutilizar código.
