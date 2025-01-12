@@ -1,20 +1,26 @@
 class ProductsPage {
-    elements = {
-        productTitle: (productName) =>
-            cy.contains('.inventory_item_name', productName),
-        addToCartButton: (productName) =>
-            cy.contains('.inventory_item_name', productName)
-                .parent()
-                .find('button'),
-    };
+    constructor() {
+        this.elements = {
+            productList: () => cy.get('[data-test="inventory-item"]'),
+            productName: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-name"]`),
+            productDescription: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-desc"]`),
+            productPrice: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-price"]`),
+            productAddToCartButton: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="add-to-cart-sauce-labs-backpack"]`),
+            productLinkDetail: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-link"]`),
+            productImage: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-img"]`),
 
-    validateProductDisplayed(productName) {
-        this.elements.productTitle(productName).should('be.visible');
-    }
+            filterDropdown: () => cy.get('[data-test="product_sort_container"]'),
 
-    addToCart(productName) {
-        this.elements.addToCartButton(productName).click();
+            cartIcon: () => cy.get('[data-test="shopping_cart_link"]'),
+            cartBadge: () => cy.get('[data-test="shopping_cart_badge"]'),
+            burgerMenu: () => cy.get('[data-test="react-burger-menu-btn"]'),
+            closeMenuButton: () => cy.get('[data-test="react-burger-cross-btn"]'),
+            menuAllItems: () => cy.get('[data-test="inventory_sidebar_link"]'),
+            menuAbout: () => cy.get('[data-test="about_sidebar_link"]'),
+            menuLogout: () => cy.get('[data-test="logout_sidebar_link"]'),
+            menuResetAppState: () => cy.get('[data-test="reset_sidebar_link"]'),
+        }
     }
 }
 
-module.exports = new ProductsPage();
+export default new ProductsPage();
