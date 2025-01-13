@@ -15,14 +15,15 @@ describe('Product Tests', () => {
     });
 
     it('TC01| Validar que se visualicen correctamente todos los productos correctamente', () => {
-        // Verificar que al menos un producto esté visible en la página
-        ProductsPage.elements.productList().should('be.exist');
 
-        // Verificar que cada producto tenga un nombre, una imagen y un precio visible
-        ProductsPage.elements.productList().each(($el, index) => {
-            ProductsPage.elements.productName(index + 1).should('be.visible');
-            ProductsPage.elements.productImage(index + 1).should('be.visible');
-            ProductsPage.elements.productPrice(index + 1).should('be.visible');
+
+        // Iterar sobre todas las cards de productos
+        ProductsPage.elements.productCard().each(($card, index) => {
+            cy.wrap($card).should('be.visible');
+            cy.wrap($card).find('[data-test="inventory-item-name"]').should('be.visible');
+            cy.wrap($card).find('[data-test="inventory-item-desc"]').should('be.visible');
+            cy.wrap($card).find('[data-test="inventory-item-price"]').should('be.visible');
+            cy.wrap($card).find('button').contains('Add to cart').should('be.visible');
         });
     });
 

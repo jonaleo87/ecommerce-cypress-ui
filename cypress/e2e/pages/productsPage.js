@@ -1,8 +1,8 @@
 class ProductsPage {
     constructor() {
         this.elements = {
-            productList: () => cy.get('[data-test="inventory-item"]'),
-            productName: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-name"]`),
+            productCard: () => cy.get('[data-test="inventory-item"]'),
+            productName: (index) => cy.get('[data-test="inventory-item-name"]'),
             productDescription: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-desc"]`),
             productPrice: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-price"]`),
             productAddToCartButton: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="add-to-cart-sauce-labs-backpack"]`),
