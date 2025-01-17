@@ -3,16 +3,18 @@ class ProductsPage {
         this.elements = {
             productCard: () => cy.get('[data-test="inventory-item"]'),
             productName: () => cy.get('[data-test="inventory-item-name"]'),
-            productDescription: () => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-desc"]`),
+            productDescription: () => cy.get('[data-test="inventory-item-desc"]'),
             productPrice: () => cy.get(`[data-test="inventory-item-price"]`),
-            productAddToCartButton: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="add-to-cart-sauce-labs-backpack"]`),
-            productLinkDetail: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-link"]`),
-            productImage: (index) => cy.get(`[data-test="inventory-item"]:nth-child(${index}) [data-test="inventory-item-img"]`),
+            productAddToCartButton: () => cy.get('button').contains('Add to cart'),
+            productRemoveButton: () => cy.get('button').contains('Remove'),
+
+            productLinkDetail: () => cy.get(`[data-test="inventory-item-link"]`),
+            productImage: () => cy.get(`[[data-test="inventory-item-img"]`),
 
             filterDropdown: () => cy.get('[data-test="product-sort-container"]'),
 
-            cartIcon: () => cy.get('[data-test="shopping_cart_link"]'),
-            cartBadge: () => cy.get('[data-test="shopping_cart_badge"]'),
+            cartIcon: () => cy.get('[data-test="shopping-cart-link"]'),
+            cartBadge: () => cy.get('[data-test="shopping-cart-badge"]'),
             burgerMenu: () => cy.get('[data-test="react-burger-menu-btn"]'),
             closeMenuButton: () => cy.get('[data-test="react-burger-cross-btn"]'),
             menuAllItems: () => cy.get('[data-test="inventory_sidebar_link"]'),

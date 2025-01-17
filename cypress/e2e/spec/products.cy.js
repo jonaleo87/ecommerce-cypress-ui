@@ -95,4 +95,31 @@ describe('Product Tests', () => {
         });
     });
 
+
+    it('TC07| Validar poder agregar y remover un producto al carrito desde una card', () => {
+        ProductsPage.elements.productCard().first().within(() => {
+            ProductsPage.elements.productAddToCartButton().click();
+        });
+        ProductsPage.elements.cartBadge().should('contain', '1');
+        ProductsPage.elements.productCard().first().within(() => {
+            cy.get('button').contains('Remove').click();
+        });
+        ProductsPage.elements.cartBadge().should('not.exist');
+    });
+
+    it('TC08| Validar poder agregar y remover todos los productos al carrito desde las cards', () => {
+        ProductsPage.elements.productCard().each(($card) => {
+            cy.wrap($card).within(() => {
+                ProductsPage.elements.productAddToCartButton().click();
+            });
+        });
+        ProductsPage.elements.cartBadge().should('contain', '6');
+        ProductsPage.elements.productCard().each(($card) => {
+            cy.wrap($card).within(() => {
+                ProductsPage.elements.productRemoveButton().click();
+            });
+        });
+        ProductsPage.elements.cartBadge().should('not.exist');
+    });
+
 });
