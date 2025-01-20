@@ -45,7 +45,7 @@ describe('Login Tests', () => {
     LoginPage.elements.errorMessage().should('contain.text', 'Epic sadface: Sorry, this user has been locked out.');
   });
 
-  it.only('TC06| Validar que al hacer logout no permite redirecciónar sin volver a loguear', () => {
+  it('TC06| Validar que al hacer logout no permite redirecciónar sin volver a loguear', () => {
     cy.login()
     cy.url().should('include', 'inventory.html');
     cy.title().should('eq', 'Swag Labs');

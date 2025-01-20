@@ -1,7 +1,12 @@
 import ProductsPage from '../pages/productsPage';
+import CartPage from '../pages/cartPage';
+import CheckoutStepOnePage from '../pages/checkoutStepOnePage';
+import CheckoutStepTwoPage from '../pages/checkoutStepTwoPage';
+import CheckoutCompletePage from '../pages/checkoutCompletePage';
+import { faker } from '@faker-js/faker';
+
 
 describe('Product Tests', () => {
-    // Crear la sesión inicial
     before(() => {
         cy.session('loginSession', () => {
             cy.navigate();
@@ -12,10 +17,12 @@ describe('Product Tests', () => {
         });
     });
 
-    // Restaurar la sesión antes de cada prueba
     beforeEach(() => {
         cy.setCookie('session-username', Cypress.env('SESSION_USERNAME_COOKIE'));
         cy.navigateInventory();
+        Cypress.env('firstName', faker.name.firstName());
+        Cypress.env('lastName', faker.name.lastName());
+        Cypress.env('postalCode', faker.address.zipCode());
     });
 
     it('TC01| Validar que se visualicen correctamente todos los productos correctamente', () => {
@@ -40,10 +47,7 @@ describe('Product Tests', () => {
     });
 
     it('TC03| Ordenar por nombre (A-Z)', () => {
-        // Seleccionar la opción de ordenar por nombre (A-Z)
         ProductsPage.elements.filterDropdown().select('az');
-
-        // Obtener los nombres de los productos y verificar que estén en orden alfabético (A-Z)
         const productNames = [];
         ProductsPage.elements.productName().each(($el) => {
             productNames.push($el.text());
@@ -54,10 +58,7 @@ describe('Product Tests', () => {
     });
 
     it('TC04| Ordenar por nombre (Z-A)', () => {
-        // Seleccionar la opción de ordenar por nombre (Z-A)
         ProductsPage.elements.filterDropdown().select('za');
-
-        // Obtener los nombres de los productos y verificar que estén en orden alfabético inverso (Z-A)
         const productNames = [];
         ProductsPage.elements.productName().each(($el) => {
             productNames.push($el.text());
@@ -68,10 +69,7 @@ describe('Product Tests', () => {
     });
 
     it('TC05| Ordenar por precio (Low to High)', () => {
-        // Seleccionar la opción de ordenar por precio (Low to High)
         ProductsPage.elements.filterDropdown().select('lohi');
-
-        // Obtener los precios de los productos y verificar que estén en orden de menor a mayor
         const productPrices = [];
         ProductsPage.elements.productPrice().each(($el) => {
             productPrices.push(parseFloat($el.text().replace('$', '')));
@@ -82,10 +80,7 @@ describe('Product Tests', () => {
     });
 
     it('TC06| Ordenar por precio (High to Low)', () => {
-        // Seleccionar la opción de ordenar por precio (High to Low)
         ProductsPage.elements.filterDropdown().select('hilo');
-
-        // Obtener los precios de los productos y verificar que estén en orden de mayor a menor
         const productPrices = [];
         ProductsPage.elements.productPrice().each(($el) => {
             productPrices.push(parseFloat($el.text().replace('$', '')));
@@ -120,6 +115,38 @@ describe('Product Tests', () => {
             });
         });
         ProductsPage.elements.cartBadge().should('not.exist');
+    });
+
+    it('TC09| Verificar que los productos agregados al carrito se muestran correctamente en la página del carrito', () => {
+        ProductsPage.elements.productCard().each(($card, index) => {
+            if (index < 3) {
+                cy.wrap($card).within(() => {
+                    ProductsPage.elements.productAddToCartButton().click();
+                });
+            }
+        });
+        ProductsPage.elements.cartIcon().click();
+        CartPage.elements.cartItem().should('have.length', 3);
+        CartPage.elements.cartItemName().each(($el, index) => {
+            cy.wrap($el).should('be.visible');
+        });
+    });
+
+    it('TC10| Completar el proceso de compra exitosamente', () => {
+        cy.add3ProductsToCart();
+        ProductsPage.elements.cartIcon().click();
+        CartPage.elements.cartCheckoutButton().click();
+        CheckoutStepOnePage.elements.firstNameInput().type(Cypress.env('firstName'));
+        CheckoutStepOnePage.elements.lastNameInput().type(Cypress.env('lastName'));
+        CheckoutStepOnePage.elements.postalCodeInput().type(Cypress.env('postalCode'));
+        CheckoutStepOnePage.elements.continueButton().click();
+        CheckoutStepTwoPage.elements.cartItem().should('have.length', 3);
+        CheckoutStepTwoPage.elements.cartSummaryTotal().should('be.visible');
+        CheckoutStepTwoPage.elements.finishButton().click();
+        CheckoutCompletePage.elements.completeHeader().should('contain', 'Thank you for your order!');
+        CheckoutCompletePage.elements.buttonBackHome().click();
+        cy.url().should('include', 'inventory.html');
+        cy.title().should('eq', 'Swag Labs');
     });
 
 });
