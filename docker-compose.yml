@@ -1,0 +1,11 @@
+version: '3'
+services:
+  cypress:
+    build: .
+    volumes:
+      - .:/e2e
+    environment:
+      - CYPRESS_baseUrl=https://www.saucedemo.com
+       - VALID_USER=${VALID_USER}
+      - VALID_PASSWORD=${VALID_PASSWORD}
+    entrypoint: ["npx", "cypress", "run"]

@@ -21,3 +21,9 @@ Follow these steps to set up and run the project:
    ```bash
    git clone https://github.com/jonaleo87/ecommerce-cypress-ui.git
    cd ecommerce-cypress-ui.git
+   ```
+
+2. **Run tests using Docker:**
+   ```bash
+   docker run -i -v "%cd%"://cypress-ejecution-docker -t {{name-image:tag}}
+   ```
