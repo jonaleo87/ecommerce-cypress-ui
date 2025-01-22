@@ -6,6 +6,18 @@ export default defineConfig({
     chromeWebSecurity: false,
     experimentalSessionAndOrigin: true,
     defaultCommandTimeout: 8000,
+    screenshotOnRunFailure: true,
+    reporter: 'mochawesome',
+    reporterOptions: {
+        html: true,
+        json: false,
+        reportDir: 'cypress/reports',
+        charts: true,
+        reportPageTitle: 'Report e2e ecommerce',
+        embeddedScreenshots: true,
+        inlineAssets: true,
+        saveAllAttempts: false,
+    },
 
 
 
@@ -15,8 +27,8 @@ export default defineConfig({
         viewportHeight: 1000,
         supportFile: 'cypress/e2e/support/e2e.js',
         setupNodeEvents(on, config) {
-            // implement node event listeners here
-        }
+
+        },
     },
     env: {
         VALID_USER: process.env.VALID_USER,

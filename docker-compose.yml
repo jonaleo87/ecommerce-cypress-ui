@@ -6,6 +6,8 @@ services:
       - .:/e2e
     environment:
       - CYPRESS_baseUrl=https://www.saucedemo.com
-       - VALID_USER=${VALID_USER}
+      - VALID_USER=${VALID_USER}
       - VALID_PASSWORD=${VALID_PASSWORD}
+      - INVALID_USER=${INVALID_USER}
+      - INVALID_PASSWORD=${INVALID_PASSWORD}
     entrypoint: ["npx", "cypress", "run"]
