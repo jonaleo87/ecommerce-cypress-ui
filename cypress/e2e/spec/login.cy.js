@@ -3,7 +3,7 @@ import LoginPage from '../pages/loginPage';
 
 
 
-describe('Login Tests', () => {
+describe('Login Tests 1', () => {
   beforeEach(() => {
     cy.navigate();
   });
