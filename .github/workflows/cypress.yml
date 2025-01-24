@@ -14,7 +14,7 @@ jobs:
 
     services:
       docker:
-        image: cypress/included:10.8.0
+        image: cypress/included:12.0.0
         options: --entrypoint /bin/sh
         ports:
           - 8080:8080
@@ -29,6 +29,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+          
 
       - name: Install dependencies
         run: npm install
