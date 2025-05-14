@@ -56,13 +56,18 @@ describe('Login Tests 1', () => {
     cy.url().should('eq', 'https://www.saucedemo.com/');
   });
 
-
   it('TC07| Validar que el login no permite una Injection SQL / Datos especiales', () => {
     const sqlInjection = "' OR '1'='1";
     LoginPage.elements.username().type(sqlInjection);
     LoginPage.elements.password().type(sqlInjection);
     LoginPage.elements.loginButton().click();
     LoginPage.elements.errorMessage().should('contain.text', 'Epic sadface: Username and password do not match any user in this service');
+  });
+
+  it('TC08| Validar que el botón de login está deshabilitado si los campos están vacíos', () => {
+    LoginPage.elements.username().clear();
+    LoginPage.elements.password().clear();
+    LoginPage.elements.loginButton().should('be.disabled');
   });
 
 });
