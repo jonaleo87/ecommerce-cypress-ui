@@ -27,3 +27,7 @@ Follow these steps to set up and run the project:
    ```bash
    docker run -i -v "%cd%"://cypress-ejecution-docker -t {{name-image:tag}}
    ```
+
+## 📫 Contacto
+
+Si tienes dudas o sugerencias sobre este proyecto, puedes contactarme a través de [LinkedIn](https://www.linkedin.com/in/jonaleo87/) o abrir un issue en este repositorio.
