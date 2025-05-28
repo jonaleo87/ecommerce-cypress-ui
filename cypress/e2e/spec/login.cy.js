@@ -70,4 +70,8 @@ describe('Login Tests 1', () => {
     LoginPage.elements.loginButton().should('be.disabled');
   });
 
+  it('TC09| Validar que el campo usuario tenga el placeholder correcto', () => {
+    LoginPage.elements.username().should('have.attr', 'placeholder', 'Username');
+  });
+
 });
