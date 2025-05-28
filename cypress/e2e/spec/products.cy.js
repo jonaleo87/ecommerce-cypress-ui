@@ -149,4 +149,8 @@ describe('Product Tests', () => {
         cy.title().should('eq', 'Swag Labs');
     });
 
+    it('TC11| Validar que el badge del carrito no se muestre cuando no hay productos agregados', () => {
+        ProductsPage.elements.cartBadge().should('not.exist');
+    });
+
 });
